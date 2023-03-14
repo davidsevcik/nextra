@@ -1,0 +1,35 @@
+{
+  "name": "doc-browser",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next",
+    "start": "next start",
+    "build": "next build",
+    "build:tailwind": "pnpm postcss css/theme.css -o styles.css --verbose",
+    "lint": "next lint",
+    "debug": "NODE_OPTIONS='--inspect' next dev",
+    "clean": "rimraf .next .turbo"
+  },
+  "dependencies": {
+    "@vercel/og": "^0.4.0",
+    "clsx": "^1.2.1",
+    "framer-motion": "^10.0.0",
+    "next": "^13.1.1",
+    "nextra": "latest",
+    "nextra-theme-docs": "workspace:*",
+    "octokit": "^2.0.14",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "shiki": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.26",
+    "autoprefixer": "^10.4.13",
+    "eslint": "^8.30.0",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.4",
+    "typescript": "^4.9.4"
+  }
+}

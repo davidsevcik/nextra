@@ -7,6 +7,7 @@
     "dev:core": "turbo run dev --filter=nextra... --filter=!docs",
     "dev:theme-blog": "turbo run dev --filter=example-blog... --filter=!docs",
     "dev:theme-docs": "turbo run dev --filter=swr-site... --filter=!docs",
+    "dev:app": "turbo run dev --filter=doc-browser",
     "dev:website": "turbo run dev --filter=docs...",
     "build:core": "pnpm run build --filter=nextra",
     "build:theme-blog": "pnpm run build --filter=nextra-theme-blog",

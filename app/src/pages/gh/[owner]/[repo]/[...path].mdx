@@ -1,0 +1,38 @@
+import { buildDynamicMDX } from '@lib/remote'
+import { Repo } from '@lib/github'
+import { RemoteContent } from 'nextra/data'
+
+
+export const getStaticProps = async ({ params }) => {
+  const repo = new Repo(process.env.GITHUB_TOKEN, params.owner, params.repo)
+  const content = await repo.getFileRaw(params.path.join('/'))
+
+  // console.log("META")
+  // const meta = await buildDynamicMeta()
+  // console.dir(meta, { depth: null })
+
+  const pageMap = await repo.buildPageMap()
+
+  return {
+    props: {
+      ...(await buildDynamicMDX(content, {
+        defaultShowCopyCode: true,
+        mdxOptions: {
+          format: "md"
+        }
+      })),
+      // ...meta
+      __nextra_pageMap: Object.values(pageMap),
+    },
+    revalidate: 10
+  }
+}
+
+export const getStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  }
+}
+
+<RemoteContent />
