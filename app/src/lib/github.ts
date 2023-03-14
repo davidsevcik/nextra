@@ -56,17 +56,18 @@ export class Repo {
     return treeResponse.data.tree
   }
 
-  async buildPageMap() {
+  async buildPageMap(rootPath = '/gh') {
     const tree = await this.getTree()
     const markdownFiles = tree.filter((node) => {
       return !node.path.startsWith(".") && node.path.endsWith(".md");
     });
 
     const memo = {}
+    const baseParts = [rootPath, this.owner, this.repo]
 
     for (const file of markdownFiles) {
       const parts = file.path.split('/')
-      const route = `/gh/${this.owner}/${this.repo}/${parts.slice(0, -1).join('/')}`
+      const route = baseParts.concat(parts.slice(0, -1)).join('/')
 
       if (!memo[route]) {
         memo[route] = {
@@ -79,7 +80,7 @@ export class Repo {
       memo[route]['children'].push({
         kind: 'MdxPage',
         name: parts[parts.length - 1],
-        route: `${route}${parts[parts.length - 1]}`,
+        route: `${route}/${parts[parts.length - 1]}`,
       })
     }
 
