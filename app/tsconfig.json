@@ -18,8 +18,8 @@
     "paths": {
       "@components/*": ["./src/components/*"],
       "@lib/*": ["./src/lib/*"],
-      "@nextra_dist/*": ["./node_modules/nextra/dist/*"],
-      "languages/*": ["./node_modules/nextra/node_modules/shiki/languages/*"]
+      "~/*": ["./src/*"],
+      "@nextra_dist/*": ["./node_modules/nextra/dist/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

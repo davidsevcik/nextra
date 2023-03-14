@@ -82,8 +82,8 @@ export class Repo {
       })
     }
 
-    console.dir(memo, { depth: null })
-    return memo
+    // console.dir(memo, { depth: null })
+    return Object.values(memo)
   }
 
 }

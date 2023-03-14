@@ -11,8 +11,6 @@ export const getStaticProps = async ({ params }) => {
   // const meta = await buildDynamicMeta()
   // console.dir(meta, { depth: null })
 
-  const pageMap = await repo.buildPageMap()
-
   return {
     props: {
       ...(await buildDynamicMDX(content, {
@@ -21,8 +19,6 @@ export const getStaticProps = async ({ params }) => {
           format: "md"
         }
       })),
-      // ...meta
-      __nextra_pageMap: Object.values(pageMap),
     },
     revalidate: 10
   }

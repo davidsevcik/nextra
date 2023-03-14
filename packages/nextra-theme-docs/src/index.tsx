@@ -1,7 +1,7 @@
 import type { NextraThemeLayoutProps, PageOpts } from 'nextra'
 
 import type { ReactElement, ReactNode } from 'react'
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import 'focus-visible'
 import cn from 'clsx'
@@ -107,15 +107,23 @@ const Body = ({
 
 const InnerLayout = ({
   filePath,
-  pageMap,
+  // pageMap,
   frontMatter,
   headings,
   timestamp,
   children
 }: PageOpts & { children: ReactNode }): ReactElement => {
   const config = useConfig()
-  const { locale = DEFAULT_LOCALE, defaultLocale } = useRouter()
+  const { locale = DEFAULT_LOCALE, defaultLocale, query } = useRouter()
   const fsPath = useFSRoute()
+  const [pageMap, setPageMap] = useState([])
+
+  useEffect(() => {
+    console.log("FETCH PAGE MAP")
+    fetch(`/api/gh/${query.owner}/${query.repo}/pageMap.json`)
+      .then(response => response.json())
+      .then(json => setPageMap(json))
+  }, [query.owner, query.repo])
 
   const {
     activeType,
