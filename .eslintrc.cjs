@@ -101,6 +101,7 @@ module.exports = {
       parserOptions: {
         project: [
           'packages/*/tsconfig.json',
+          'app/tsconfig.json',
           'docs/tsconfig.json',
           'tsconfig.eslint.json'
         ]
@@ -153,6 +154,19 @@ module.exports = {
           config: 'packages/nextra-theme-docs/tailwind.config.js',
           whitelist: ['nextra-code-block']
         }
+      }
+    },
+    // ⚙️ App
+    {
+      ...TAILWIND_CONFIG,
+      files: 'app/**',
+      settings: {
+        tailwindcss: {
+          config: 'app/tailwind.config.js',
+          callees: ['cn'],
+          whitelist: ['dash-ring', 'theme-1', 'theme-2', 'theme-3', 'theme-4']
+        },
+        next: { rootDir: 'app' }
       }
     },
     // ⚙️ Docs

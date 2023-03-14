@@ -41,8 +41,7 @@ export class Repo {
     } catch (e) {
       if (e.status === 404 && branch === 'main')
         return this.getMainSha('master')
-      else
-        throw e
+      throw e
     }
   }
 
