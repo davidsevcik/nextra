@@ -68,14 +68,13 @@ export class Repo {
       const parts = file.path.split('/')
       const route = baseParts.concat(parts.slice(0, -1)).join('/')
 
-      if (!memo[route]) {
-        memo[route] = {
-          kind: 'Folder',
-          route,
-          name: parts[parts.length - 2] ?? 'root',
-          children: [],
-        }
+      memo[route] ||= {
+        kind: 'Folder',
+        route,
+        name: parts[parts.length - 2] ?? 'root',
+        children: [],
       }
+
       memo[route]['children'].push({
         kind: 'MdxPage',
         name: parts[parts.length - 1],
