@@ -1,5 +1,6 @@
 import { buildDynamicMDX } from '@lib/remote'
 import { Repo } from '@lib/github'
+import { useRouter } from 'next/router'
 import { RemoteContent } from 'nextra/data'
 
 
@@ -7,11 +8,7 @@ export const getStaticProps = async ({ params }) => {
   const repo = new Repo(process.env.GITHUB_TOKEN, params.owner, params.repo)
   const content = await repo.getFileRaw(params.path.join('/'))
 
-  // console.log("META")
-  // const meta = await buildDynamicMeta()
-  // console.dir(meta, { depth: null })
-
-  // const pageMap = await repo.buildPageMap()
+  console.log("GET STATIC PROPS")
 
   return {
     props: {
@@ -29,8 +26,19 @@ export const getStaticProps = async ({ params }) => {
 export const getStaticPaths = async () => {
   return {
     paths: [],
-    fallback: 'blocking'
+    fallback: true
   }
 }
 
-<RemoteContent />
+export function DocPage(props) {
+  const router = useRouter()
+
+  return (
+    router.isFallback
+      ? <div>Loading...</div>
+      : <RemoteContent />
+  )
+}
+
+
+<DocPage />

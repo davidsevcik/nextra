@@ -430,13 +430,15 @@ export function Sidebar({
                   />
                 </Collapse>
               )}
-              <Menu
-                className="md:nx-hidden"
-                // The mobile dropdown menu, shows all the directories.
-                directories={fullDirectories}
-                // Always show the anchor links on mobile (`md`).
-                anchors={anchors}
-              />
+              {fullDirectories.length > 0
+                ? <Menu
+                    className="md:nx-hidden"
+                    // The mobile dropdown menu, shows all the directories.
+                    directories={fullDirectories}
+                    // Always show the anchor links on mobile (`md`).
+                    anchors={anchors}
+                  />
+                : <div>Loading...</div>}
             </div>
           </OnFocuseItemContext.Provider>
         </FocusedItemContext.Provider>

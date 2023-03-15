@@ -1,5 +1,6 @@
 import { buildDynamicMDX } from '@lib/remote'
 import { Repo } from '@lib/github'
+import { useRouter } from 'next/router'
 import { RemoteContent } from 'nextra/data'
 
 
@@ -27,8 +28,19 @@ export const getStaticProps = async ({ params }) => {
 export const getStaticPaths = async () => {
   return {
     paths: [],
-    fallback: 'blocking'
+    fallback: true
   }
 }
 
-<RemoteContent />
+export function DocPage(props) {
+  const router = useRouter()
+
+  return (
+    router.isFallback
+      ? <div>Loading...</div>
+      : <RemoteContent />
+  )
+}
+
+
+<DocPage />
