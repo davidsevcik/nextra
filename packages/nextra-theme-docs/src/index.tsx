@@ -120,9 +120,10 @@ const InnerLayout = ({
 
   useEffect(() => {
     console.log("FETCH PAGE MAP")
-    fetch(`/api/gh/${query.owner}/${query.repo}/pageMap.json`)
-      .then(response => response.json())
-      .then(json => setPageMap(json))
+    if (query.owner && query.repo)
+      fetch(`/api/gh/${query.owner}/${query.repo}/pageMap.json`)
+        .then(response => response.json())
+        .then(json => setPageMap(json))
   }, [query.owner, query.repo])
 
   const {
@@ -136,13 +137,15 @@ const InnerLayout = ({
     flatDocsDirectories,
     directories
   } = useMemo(
-    () =>
-      normalizePages({
+    () => {
+      console.log("NORMALIZE PAGES")
+      return normalizePages({
         list: pageMap,
         locale,
         defaultLocale,
         route: fsPath
-      }),
+      })
+    },
     [pageMap, locale, defaultLocale, fsPath]
   )
 
